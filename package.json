@@ -1,0 +1,17 @@
+{
+  "name": "vue-j7i18n",
+  "version": "1.0.0",
+  "description": "A Vue plugin for simple translations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "i18n",
+    "j7"
+  ],
+  "author": "pedromendonka",
+  "license": "ISC",
+  "dependencies": {}
+}
