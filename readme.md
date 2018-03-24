@@ -6,7 +6,7 @@ _____________________________________________
 
 ## Why another i18n plugin for VueJS?
 
-**J7i18n** is _not the most powerfull and complete i18n solution_ out there and it is not the goal of it.
+**J7i18n** is _not the most powerfull and complete i18n solution_ out there and it is not the goal of it.<br>
 This plugin tries to achieve just a **simple solution for simple translations**.
 
 **The plugin is to be used with Vue Components**
@@ -63,6 +63,7 @@ ________________
 ## Configuration
 
 ### Common/Global translations
+Just pass an object as the second param with the common/global translations accessible by all components
 
 ``` javascript
 // Main.js
@@ -78,8 +79,8 @@ Vue.use(J7i18n, {
 
 ### Scoped translations
 
-Create translations on component Created Hook.
-Use the createTranslations() method passing an object
+Create translations on component Created Hook.<br>
+Use the *createTranslations()* method passing an object
 
 ``` javascript
 // myComponent.js or Component.vue
@@ -109,8 +110,8 @@ ________
 
 ### Define the container
 
-Can be the component root element or another one.
-This just creates the necessary reactivity when we change the language.
+Can be the component root element or another one.<br>
+This just creates the necessary reactivity when we change the language.<br><br>
 For that we use the _```.language```_  *modifier* passing the expression: _```currentLanguage```_ to i18n directive
 
 ``` html
@@ -124,8 +125,8 @@ For that we use the _```.language```_  *modifier* passing the expression: _```cu
 
 ### Define elements to be translated
 
-We can define elements to be translated using i18n directive passing the key as an argument.
-Common/global translations or scoped translations are used in the same.
+We can define elements to be translated using i18n directive passing the key as an argument.<br>
+Common/global translations or scoped translations are used exacly the same way.
 
 ``` html
 <template>
@@ -143,8 +144,8 @@ Common/global translations or scoped translations are used in the same.
 
 ### Change Language
 
-The initial language is the client/browser default language
-After that, the plugin store the user preference in browser local storage
+The initial language is the client/browser default language.<br>
+After that, the plugin stores the user preference in browser's local storage
 
 ``` html
 <template>
