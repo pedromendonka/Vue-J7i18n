@@ -1,17 +1,22 @@
 {
   "name": "vue-j7i18n",
   "version": "1.0.1",
-  "description": "A Vue plugin for simple translations",
+  "description": "A VueJS plugin for simple translations",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "vue",
+    "vuejs",
     "i18n",
-    "j7"
+    "jera7"
   ],
   "author": "pedromendonka",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedromendonka/Vue-J7i18n"
+  },
   "dependencies": {}
 }
