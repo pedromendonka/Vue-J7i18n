@@ -8,6 +8,29 @@
 // writen by pedromendonka
 //////////////////////////
 */
+
+// Most Common Text Filters
+const filter = (value, filter) => {
+  let text = value
+  const filterName = filter.trim().toLowerCase()
+  switch (filterName) {
+    case 'lowercase':
+      return text.toLowerCase()
+    case 'uppercase':
+      return text.toUpperCase()
+    case 'capitalize':
+      return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()
+    case 'titlecase':
+      text = text.split(' ')
+      text = text.map(x => {
+        return x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()
+      })
+      return text.join(' ')
+    default:
+      throw new Error('NO VALID FILTER! Valid filters are: lowercase, uppercase, capitalize and titlecase')
+  }
+}
+// EXPORTS
 export default {
   install (Vue, commonTranslations) {
     // Setting common Translations on plugin installation
@@ -35,7 +58,8 @@ export default {
         try {
           let lang = localStorage.getItem('i18nLang')
           let key = binding.arg
-          let modLanguage = binding.modifiers.language
+          let modifier = Object.keys(binding.modifiers)[0]
+          console.log(modifier)
           let expression = binding.expression
           // Checking if directive has argument -> translation key
           if (key) {
@@ -49,15 +73,21 @@ export default {
               if (!(lang in Vue.i18nTranslations[key])) {
                 throw new Error(`There is no translation for language >>> ${lang} <<<`)
               }
-              // Initial translation
-              el.innerHTML = Vue.i18nTranslations[key][lang]
+              if (modifier) {
+                // Initial translation with filter - text transformation
+                let translationText = Vue.i18nTranslations[key][lang]
+                el.innerHTML = filter(translationText, modifier)
+              } else {
+                // Initial translation
+                el.innerHTML = Vue.i18nTranslations[key][lang]
+              }
             } else {
               throw new Error(`Seems that No translations have been created. Use this.createTranslations() on Created Hook inside your component.`)
             }
           } else {
             // If no key check if has the modifier language
             // This modifier must create a binding to currentLanguage computed property for reactivity
-            if (modLanguage) {
+            if (modifier === 'language') {
               // Check if expression is currentLanguage -> computed property for data's i18nLanguage
               if (expression !== 'currentLanguage') {
                 throw new Error(`The expression for i18n.language must be v-i18n.language="currentLanguage" and not >>> ${expression} <<<`)
@@ -77,9 +107,17 @@ export default {
       },
       componentUpdated (el, binding) {
         let key = binding.arg
+        let modifier = Object.keys(binding.modifiers)[0]
         let lang = localStorage.getItem('i18nLang')
         if (key) {
-          el.innerHTML = Vue.i18nTranslations[key][lang]
+          if (modifier) {
+            // Initial translation with filter - text transformation
+            let translationText = Vue.i18nTranslations[key][lang]
+            el.innerHTML = filter(translationText, modifier)
+          } else {
+            // Initial translation
+            el.innerHTML = Vue.i18nTranslations[key][lang]
+          }
         }
       }
     })
@@ -99,7 +137,6 @@ export default {
           try {
             if (typeof scopedTranslations === 'object') {
               Vue.i18nTranslations = Object.assign(Vue.i18nTranslations, scopedTranslations)
-              console.log(Vue.i18nTranslations)
             } else {
               throw new Error('Translations must be an Object like { hello: {en: "hello world", pt: "olá mundo"} }')
             }

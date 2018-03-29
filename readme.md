@@ -36,15 +36,7 @@ OR
 
 **Download it and put somewhere inside your src folder**
 
-> yourAppFolder
-
-> src
-
-> plugins
-
-> vue-j7i18n
-
-> index.js
+> yourAppFolder / src / plugins / Vue-J7i18n / index.js
 
 __________________
 
@@ -54,7 +46,7 @@ __________________
 // Import it in your Main.js
 import J7i18n from 'vue-j7i18n'
 // OR
-import J7i18n from './plugins/vue-j7-i18n'
+import J7i18n from './plugins/Vue-J7i18n'
 
 Vue.use(J7i18n)
 ```
@@ -110,7 +102,7 @@ ________
 
 ### Define the container
 
-Can be the component root element or another one.<br>
+Can be component's root element or any other element container.<br>
 This just creates the necessary reactivity when we change the language.<br><br>
 For that we use the _```.language```_  *modifier* passing the expression: _```currentLanguage```_ to i18n directive
 
@@ -163,3 +155,65 @@ After that, the plugin stores the user preference in browser's local storage
 </template>
 ```
 
+### FILTERS
+
+`New in version 1.1.0`<br><br>
+
+If you use **VueJS** *filters* for simple text transformation inside your html elements like this:
+
+``` html
+  <p>{{my text | toUpperCaseFilter}}</p>
+```
+
+and want to use J7i18n, just keep reading...<br><br>
+
+Since J7i18n substitutes element´s inner html, you can't use VueJS filters the classic way.<br>
+#### **BUT FEAR NOT**<br>
+Because in version 1.1.x, **J7i18n**, has *builtin* the most common text transformations that you can use as a *directive modifier*.<br><br>
+
+The valid modifiers you can use for text transformation are:
+
+- lowercase
+> my translation text
+- uppercase
+> MY TRANSLATION TEXT
+- capitalize
+> My translation text
+- titlecase
+> My Translation Text
+
+#### Using filters
+
+``` html
+<template>
+
+  <div id="myComponent-container" v-i18n.language="currentLanguage">
+
+    <!-- Use the modifiers after translation Key argument -->
+
+    <h1 v-i18n:title.titlecase></h1>      <!-- My Translation Text -->
+    <h2 v-i18n:subTitle.capitalize></h2>  <!-- My translation text -->
+    <p v-i18n:description.lowercase></p>  <!-- my translation text -->
+    <h4 v-i18n:important.uppercase></h4>  <!-- MY TRANSLATION TEXT -->
+
+  </div>
+</template>
+```
+
+________
+
+## Extra Notes
+
+Since J7i18n substitutes element's inner HTML, you can put html tags inside your translation string like this:
+<br><br>
+`en: '<strong>Bold</strong> people go far. See them <a href="link_to_bold_people_list"><strong>HERE</strong></a>'`
+<br><br>
+It Works!!!
+
+Thank you for using and testing **J7i18n**
+
+________
+
+## Found a Bug? Or a problem...
+
+Please, feel free to open an issue!
