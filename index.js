@@ -59,7 +59,6 @@ export default {
           let lang = localStorage.getItem('i18nLang')
           let key = binding.arg
           let modifier = Object.keys(binding.modifiers)[0]
-          console.log(modifier)
           let expression = binding.expression
           // Checking if directive has argument -> translation key
           if (key) {
