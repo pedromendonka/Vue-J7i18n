@@ -30,6 +30,7 @@ const filter = (value, filter) => {
       throw new Error('NO VALID FILTER! Valid filters are: lowercase, uppercase, capitalize and titlecase')
   }
 }
+
 // EXPORTS
 export default {
   install (Vue, commonTranslations) {
@@ -52,6 +53,10 @@ export default {
     if (!localStorage.getItem('i18nLang')) {
       localStorage.setItem('i18nLang', (navigator.language || navigator.userLanguage).split('-')[0])
     }
+
+    // Event Bus for currentLanguage state
+    const I18nBus = new Vue()
+
     // Directive for translations
     Vue.directive('i18n', {
       bind (el, binding) {
@@ -120,6 +125,7 @@ export default {
         }
       }
     })
+
     // MIXINS
     Vue.mixin({
       data () {
@@ -129,8 +135,8 @@ export default {
       },
       methods: {
         changeLanguage (lang) {
-          this.i18nLanguage = lang
           localStorage.setItem('i18nLang', lang)
+          I18nBus.$emit('changedLanguage', lang)
         },
         createTranslations (scopedTranslations) {
           try {
@@ -151,6 +157,9 @@ export default {
       },
       created () {
         this.i18nLanguage = localStorage.getItem('i18nLang')
+        I18nBus.$on('changedLanguage', lang => {
+          this.i18nLanguage = lang
+        })
       }
     })
   }

@@ -24,6 +24,12 @@ This plugin tries to achieve just a **simple solution for simple translations**.
   * changeLanguage()
   * createTranslations()
 * 0 dependencies
+* Browser local storage for user language preference
+
+`New in version 1.1.x`
+
+* Translated text modifiers (like VueJS filters)
+* Event Bus for global current language state
 
 _______________
 
@@ -165,7 +171,7 @@ If you use **VueJS** *filters* for simple text transformation inside your html e
   <p>{{my text | toUpperCaseFilter}}</p>
 ```
 
-and want to use J7i18n, just keep reading...<br><br>
+and want to use J7i18n, just keep reading...<br>
 
 Since J7i18n substitutes element´s inner html, you can't use VueJS filters the classic way.<br>
 #### **BUT FEAR NOT**<br>
@@ -208,7 +214,9 @@ Since J7i18n substitutes element's inner HTML, you can put html tags inside your
 <br><br>
 `en: '<strong>Bold</strong> people go far. See them <a href="link_to_bold_people_list"><strong>HERE</strong></a>'`
 <br><br>
-It Works!!!
+It just works!!!
+<br><br>
+J7i18n uses an event bus to communicate current language state between components. This way we can put the `changeLanguage()` logic inside a, let's say, MainMenu component, and it will update all other components instantly.
 
 Thank you for using and testing **J7i18n**
 
